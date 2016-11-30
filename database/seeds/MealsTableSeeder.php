@@ -1,5 +1,6 @@
 <?php
-
+date_default_timezone_set('America/New_York');
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class MealsTableSeeder extends Seeder
@@ -16,8 +17,8 @@ class MealsTableSeeder extends Seeder
 	        'Protein' =>  random_int(0, 50),
 	        'Carbohydrates' =>  random_int(0, 50),
 	        'Fat' =>  random_int(0, 50),
-	        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-	        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+	        'created_at' => Carbon::now(),
+	        'updated_at' => Carbon::now()
     	]);
     }
 }
