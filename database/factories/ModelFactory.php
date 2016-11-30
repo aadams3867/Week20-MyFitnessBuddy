@@ -22,3 +22,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\meals::class, function (Faker\Generator $faker) {
+    return [
+        'Food Name' => $faker->word,
+        'Protein' => $faker->numberBetween(0, 50),
+        'Carbohydrates' => $faker->numberBetween(0, 50),
+        'Fat' => $faker->numberBetween(0, 50),
+        'created_at' => $faker->dateTime($max = 'now'),
+        'updated_at' => $faker->dateTime($max = 'now')                         
+    ];
+});
