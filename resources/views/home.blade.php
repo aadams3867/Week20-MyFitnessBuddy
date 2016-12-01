@@ -6,10 +6,11 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="panel-title">Welcome, Stranger!</div>
+                    <div class="panel-title">Welcome, {{ Auth::user()->name }}!</div>
                 </div>
+
                 <div class="panel-body">
-                    <a href="{{ url('/login') }}">Login</a> or <a href="{{ url('/register') }}">Register</a> to get started.
+                    Looks like you haven't eaten anything today.  <a href="{{ url('/meals/create') }}">You should change that.</a>
                 </div>
             </div>
         </div>

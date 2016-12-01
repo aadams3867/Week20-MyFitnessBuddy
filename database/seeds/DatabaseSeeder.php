@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('America/New_York');
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
