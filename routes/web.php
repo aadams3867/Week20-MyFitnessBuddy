@@ -18,3 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/meals/create', function () {
+	return view('addMeal');
+});
+
+Route::get('/meals/{id}', function ($id) {
+	return view('oneMeal');
+});
+
+Route::get('/meals', function () {
+	return view('allTheMeals');
+});
