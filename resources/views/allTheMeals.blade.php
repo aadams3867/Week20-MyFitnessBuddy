@@ -9,7 +9,7 @@
                     <div class="panel-title">All the Meals</div>
                 </div>
                 <div class="panel-body">
-                    <a href="{{ url('/login') }}">Login</a> or <a href="{{ url('/register') }}">Register</a> to get started.
+                    All the Meals details to come!!
                 </div>
             </div>
         </div>

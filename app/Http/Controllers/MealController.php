@@ -55,7 +55,10 @@ class MealController extends Controller
                 $meal->Food_Name)
         );
 
-        return redirect()->route( 'layouts.app' );
+        return redirect()->route( 'oneMeal',
+            ['meal' => Meal::find( $id )] 
+        );
+        // return redirect()->route( 'layouts.app' );
         // return redirect()->route( 'meals.show', $task->id );
     }
 
