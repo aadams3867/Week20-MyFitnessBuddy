@@ -13,7 +13,7 @@ class MealsTableSeeder extends Seeder
     public function run()
     {
     	DB::table('meals')->insert([
-	        'Food Name' => str_random(10),
+	        'Food_Name' => str_random(10),
 	        'Protein' =>  random_int(0, 50),
 	        'Carbohydrates' =>  random_int(0, 50),
 	        'Fat' =>  random_int(0, 50),

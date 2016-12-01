@@ -25,7 +25,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Meal::class, function (Faker\Generator $faker) {
     return [
-        'Food Name' => $faker->word,
+        'Food_Name' => $faker->word,
         'Protein' => $faker->numberBetween(0, 50),
         'Carbohydrates' => $faker->numberBetween(0, 50),
         'Fat' => $faker->numberBetween(0, 50),
