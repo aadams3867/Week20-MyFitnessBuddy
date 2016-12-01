@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(MealsTableSeeder::class);
         factory(App\Meal::class, 5)->create();
+
+        $this->call(FoodsTableSeeder::class);
+        factory(App\Food::class, 5)->create();
     }
 }

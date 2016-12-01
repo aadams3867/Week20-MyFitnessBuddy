@@ -14,9 +14,9 @@
                     <div class="input-group">
                       <span class="input-group-addon" id="sizing-addon2">Name</span>
                       <input type="text" class="form-control" placeholder="Meal name" aria-describedby="sizing-addon2"
-                            name="Food_Name"
-                            id="Food_Name"
-                            value="@yield('Food_Name')">
+                            name="Meal_Name"
+                            id="Meal_Name"
+                            value="@yield('Meal_Name')">
 
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">Submit</button>

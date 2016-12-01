@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class MealsTableSeeder extends Seeder
+class FoodsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,11 @@ class MealsTableSeeder extends Seeder
      */
     public function run()
     {
-    	DB::table('meals')->insert([
-	        'Meal_Name' => str_random(10),
+    	DB::table('foods')->insert([
+	        'Food_Name' => str_random(10),
+	        'Protein' =>  random_int(0, 50),
+	        'Carbohydrates' =>  random_int(0, 50),
+	        'Fat' =>  random_int(0, 50),
 	        'created_at' => Carbon::now(),
 	        'updated_at' => Carbon::now()
     	]);

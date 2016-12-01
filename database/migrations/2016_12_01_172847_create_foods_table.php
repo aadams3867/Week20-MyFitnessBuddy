@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMealsTable extends Migration
+class CreateFoodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateMealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meals', function(Blueprint $table)
+        Schema::create('foods', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('Meal_Name');
+            $table->string('Food_Name');
+            $table->tinyInteger('Protein');
+            $table->tinyInteger('Carbohydrates');
+            $table->tinyInteger('Fat');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateMealsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meals');
+        Schema::drop('foods');
     }
 }

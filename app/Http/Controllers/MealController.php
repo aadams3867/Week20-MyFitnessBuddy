@@ -48,15 +48,16 @@ class MealController extends Controller
     public function store(Request $request)
     {
         $meal               = new Meal();  // Create a new Meal obj
-        $meal->Food_Name    = $request->Food_Name;  // The $request->Food_Name is from addMeal.blade.php's form's 'Meal name' input
+        $meal->Meal_Name    = $request->Meal_Name;  // The $request->Food_Name is from addMeal.blade.php's form's 'Meal name' input
         $meal->save();  // Saves this new obj data in the db
         request()->session()->flash( 'status',  // Calls the Bootstrap pop-up alert containing success msg
             sprintf( 'Created new meal: %s', // %s = string
-                $meal->Food_Name)
+                $meal->Meal_Name)
         );
 
         return redirect()->route( 'oneMeal',
-            ['meal' => Meal::find( $id )] 
+            ['id' => $data->id]
+            //['meal' => Meal::find( $id )]
         );
         // return redirect()->route( 'layouts.app' );
         // return redirect()->route( 'meals.show', $task->id );

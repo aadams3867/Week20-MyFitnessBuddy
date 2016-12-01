@@ -25,6 +25,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Meal::class, function (Faker\Generator $faker) {
     return [
+        'Meal_Name' => $faker->word,
+        'created_at' => $faker->dateTime($max = 'now'),
+        'updated_at' => $faker->dateTime($max = 'now')                         
+    ];
+});
+
+$factory->define(App\Food::class, function (Faker\Generator $faker) {
+    return [
         'Food_Name' => $faker->word,
         'Protein' => $faker->numberBetween(0, 50),
         'Carbohydrates' => $faker->numberBetween(0, 50),
