@@ -54,11 +54,12 @@ class MealController extends Controller
         $meal->user_id      = Auth::user()->id;
 
 
-/*        echo ("<pre>");
-        var_dump($meal);
-                var_dump(Auth::user()->id);
+        echo ("<pre>");
+        //var_dump($meal);
+                var_dump($user);
+                //var_dump(Auth::user()->id);
         echo ("</pre>");
-        die;*/
+        die;
 
 
         Auth::user()->meals()->save($meal);

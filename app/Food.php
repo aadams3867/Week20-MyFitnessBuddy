@@ -21,6 +21,6 @@ class Food extends Model
 
     public function meal()
     {
-    	return $this->belongsTo('Meal');
+    	return $this->belongsTo(Meal::class);
     }
 }
