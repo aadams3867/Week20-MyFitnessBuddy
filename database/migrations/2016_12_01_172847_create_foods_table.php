@@ -17,9 +17,10 @@ class CreateFoodsTable extends Migration
         {
             $table->increments('id');
             $table->string('Food_Name');
-            $table->tinyInteger('Protein');
-            $table->tinyInteger('Carbohydrates');
-            $table->tinyInteger('Fat');
+            $table->integer('meal_id')->unsigned();
+            $table->tinyInteger('Protein')->unsigned()->index();
+            $table->tinyInteger('Carbohydrates')->unsigned()->index();
+            $table->tinyInteger('Fat')->unsigned()->index();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Meal;
+use App\User;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
@@ -24,7 +25,7 @@ class MealController extends Controller
      */
     public function index()
     {
-        return view('allTheMeals', 
+        return view('/meals/allTheMeals', 
             ['meal' => Meal::all()]
         );
     }
@@ -36,7 +37,7 @@ class MealController extends Controller
      */
     public function create()
     {
-        return view('addMeal');
+        return view('/meals/addMeal');
     }
 
     /**
@@ -45,18 +46,23 @@ class MealController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        $meal               = new Meal();  // Create a new Meal obj
-        $meal->Meal_Name    = $request->Meal_Name;  // The $request->Food_Name is from addMeal.blade.php's form's 'Meal name' input
-        $meal->save();  // Saves this new obj data in the db
+        $meal               = new Meal($request->all());    // Create a new Meal obj
+        $meal->Meal_Name    = $request->Meal_Name;  // The $request->Meal_Name is from addMeal.blade.php's form's 'Meal name' input
+        $meal->save();                              // Saves this new obj data in the db
+
+        $user->meals();         // Sets user hasMany meals relationship
+        $user->save($meal);     // Saves relationship info in the db
+
         request()->session()->flash( 'status',  // Calls the Bootstrap pop-up alert containing success msg
-            sprintf( 'Created new meal: %s', // %s = string
+            sprintf( 'Created new meal: %s',    // %s = string
                 $meal->Meal_Name)
         );
 
-        return redirect()->route( 'oneMeal',
-            ['id' => $data->id]
+        return redirect()->action( 'MealsController@show',
+            $meal->id       // Meal created successfully, so now let's display it
+            //['id' => $data->id]
             //['meal' => Meal::find( $id )]
         );
         // return redirect()->route( 'layouts.app' );
@@ -71,7 +77,7 @@ class MealController extends Controller
      */
     public function show($id)
     {
-        return view('oneMeal',
+        return view('/meals/oneMeal',
             ['meal' => Meal::find( $id )]
         );
     }

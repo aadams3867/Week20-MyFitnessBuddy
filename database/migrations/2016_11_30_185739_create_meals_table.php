@@ -17,6 +17,7 @@ class CreateMealsTable extends Migration
         {
             $table->increments('id');
             $table->string('Meal_Name');
+            $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });
     }

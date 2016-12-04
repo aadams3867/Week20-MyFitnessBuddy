@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check())  // If the user is logged in...
+		return view('home');
+    else
+		return view('welcome');
 });
 
 Auth::routes();
