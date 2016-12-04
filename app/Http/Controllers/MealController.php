@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Meal;
 use App\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class MealController extends Controller
 {
@@ -50,17 +51,26 @@ class MealController extends Controller
     {
         $meal               = new Meal($request->all());    // Create a new Meal obj
         $meal->Meal_Name    = $request->Meal_Name;  // The $request->Meal_Name is from addMeal.blade.php's form's 'Meal name' input
-        $meal->save();                              // Saves this new obj data in the db
+        $meal->user_id      = Auth::user()->id;
 
-        $user->meals();         // Sets user hasMany meals relationship
-        $user->save($meal);     // Saves relationship info in the db
+
+/*        echo ("<pre>");
+        var_dump($meal);
+                var_dump(Auth::user()->id);
+        echo ("</pre>");
+        die;*/
+
+
+        Auth::user()->meals()->save($meal);
+
+        // $user->meals()->save($meal);             // Sets user hasMany meals relationship and then saves it in the db
 
         request()->session()->flash( 'status',  // Calls the Bootstrap pop-up alert containing success msg
             sprintf( 'Created new meal: %s',    // %s = string
                 $meal->Meal_Name)
         );
 
-        return redirect()->action( 'MealsController@show',
+        return redirect()->action( 'MealController@show',
             $meal->id       // Meal created successfully, so now let's display it
             //['id' => $data->id]
             //['meal' => Meal::find( $id )]

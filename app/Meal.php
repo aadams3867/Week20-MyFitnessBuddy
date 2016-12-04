@@ -3,14 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Meal extends Model
 {
 
-/*    public function user()
+    use Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'Meal_Name', 'user_id', 'id'
+    ];
+
+
+    public function user()
     {
     	return $this->belongsTo('User');
-    }*/
+    }
 
     public function foods()
     {

@@ -9,7 +9,7 @@
                     <div class="panel-title">Add Another Meal</div>
                 </div>
                 <div class="panel-body">
-                  <form class="form-horizontal" role="form" method="POST" action="{{ route('meals.store') }}">
+                  <form class="form-horizontal" role="form" method="POST" action="{{ route('meals.store', ['user' => 'Auth::user()'] ) }}">
                     {{ csrf_field() }}
                     <div class="input-group">
                       <span class="input-group-addon" id="sizing-addon2">Name</span>

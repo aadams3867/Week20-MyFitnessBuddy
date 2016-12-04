@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'id'
     ];
 
     /**
@@ -31,4 +31,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Meal::class);
     }
+
+/*    public function getAttribute($key)
+    {
+        $meal = Meal::where('user_id', '=', $this->attributes['id'])->first()->toArray();
+
+        foreach ($meal as $attr => $value) {
+            if (!array_key_exists($attr, $this->attributes)) {
+                $this->attributes[$attr] = $value;
+            }
+        }
+
+        return parent::getAttribute($key);
+    }*/
 }
