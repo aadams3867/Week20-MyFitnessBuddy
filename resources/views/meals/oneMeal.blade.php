@@ -13,10 +13,12 @@
         <ul class="list-food">
             <?php
             $listOfFoods = DB::table('foods')->where('meal_id', $meal->id)->pluck('Food_Name');
+            $foodFound = false;
             foreach ($listOfFoods as $food) {
                 ?><li class="list-food-item">{{ $food }}</li><?php
+                $foodFound = true;
             }
-            if (!$food) {
+            if ($foodFound == false) {
                 echo "No Foods associated with this meal.  Add some below.";
             }
 
