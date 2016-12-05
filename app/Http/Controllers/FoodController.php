@@ -2,23 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Meal;
-use App\User;
 use Illuminate\Http\Request;
-use Auth;
+use App\Meal;
+use App\Food;
 
-class MealController extends Controller
+class FoodController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +15,7 @@ class MealController extends Controller
      */
     public function index()
     {
-        return view('/meals/allTheMeals', 
-            ['meal' => Meal::all()]
-        );
+        //
     }
 
     /**
@@ -38,7 +25,7 @@ class MealController extends Controller
      */
     public function create()
     {
-        return view('/meals/addMeal')->withUser(auth()->user());
+        //
     }
 
     /**
@@ -47,21 +34,21 @@ class MealController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Meal $meal)
     {
-        $meal               = new Meal($request->all());    // Create a new Meal obj
-        $meal->Meal_Name    = $request->Meal_Name;  // The $request->Meal_Name is from addMeal.blade.php's form's 'Meal name' input
-        $meal->user_id      = Auth::user()->id;
+        $food               = new Food($request->all());    // Create a new Food obj
+        $food->Food_Name    = $request->Food_Name;  // The $request->Food_Name is from oneMeal.blade.php's form's 'Food name' input
+        $food->meal_id      = $meal->id;
 
-        Auth::user()->meals()->save($meal);     // Sets user hasMany meals relationship and then saves it in the db
+        $meal->foods()->save($food);     // Sets meal hasMany foods relationship and then saves it in the db
 
         request()->session()->flash( 'status',  // Calls the Bootstrap pop-up alert containing success msg
-            sprintf( 'Created new meal: %s',    // %s = string
-                $meal->Meal_Name)
+            sprintf( 'Created new food: %s',    // %s = string
+                $food->Food_Name)
         );
 
         return redirect()->action( 'MealController@show',
-            $meal->id       // Meal created successfully, so now let's display it
+            $meal->id       // Food created successfully, so now let's display it
         );
     }
 
@@ -73,10 +60,7 @@ class MealController extends Controller
      */
     public function show($id)
     {
-        // return view('/meals/oneMeal')->withMeal(Meal::find( $id ));
-        return view('/meals/oneMeal',
-            ['meal' => Meal::find( $id )]
-        );
+        //
     }
 
     /**

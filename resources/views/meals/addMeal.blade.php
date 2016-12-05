@@ -9,7 +9,8 @@
                     <div class="panel-title">Add Another Meal</div>
                 </div>
                 <div class="panel-body">
-                  <form class="form-horizontal" role="form" method="POST" action="{{ route('meals.store', ['user' => 'id'] ) }}">
+                  <form class="form-horizontal" role="form" method="POST" action="{{ route('meals.store') }}">
+<!--                   <form class="form-horizontal" role="form" method="POST" action="{{ route('meals.store', ['user()' => 'id'] ) }}"> -->
                     {{ csrf_field() }}
                     <div class="input-group">
                       <span class="input-group-addon" id="sizing-addon2">Name</span>
@@ -17,7 +18,6 @@
                             name="Meal_Name"
                             id="Meal_Name"
                             value="@yield('Meal_Name')">
-
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">Submit</button>
                       </span>
