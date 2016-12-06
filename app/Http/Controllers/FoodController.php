@@ -18,6 +18,30 @@ class FoodController extends Controller
     public $totalCal=0;
 
     /**
+     * Display Initial stats.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function initStats() 
+    {
+        $arrayStats = array(0, 0, 0, 0);
+        return $arrayStats;
+    }
+
+    /**
+     * Display Refreshed stats.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function refreshStats() 
+    {
+        global $totalCal, $gProt, $gCarb, $gFat;
+        $arrayStats = array($totalCal, $gProt, $gCarb, $gFat);
+        var_dump ($arrayStats);
+        return $arrayStats;
+    }
+    
+    /**
      * Calculate the total grams of Protein, Carbs, and Fat.
      *
      * @return \Illuminate\Http\Response
@@ -30,6 +54,7 @@ class FoodController extends Controller
         $gCarb += $c;
         $gFat += $f;
     }
+
     /**
      * Calculate the total calories.
      *

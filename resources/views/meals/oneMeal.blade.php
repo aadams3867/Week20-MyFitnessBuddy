@@ -7,22 +7,20 @@
             <?php echo date("l, M d, Y", strtotime($meal->created_at)) ?>
         </div>
         <?php
-            $totalCal = 0;
-            $protCal = 0;
-            $carbCal = 0;
-            $fatCal = 0;
+            use App\Http\Controllers\FoodController;
+            $arrayStats = FoodController::initStats();
         ?>
-        <span class="meal-data label label-pill label-primary">{{ $totalCal }} Cal</span>
-        <span class="meal-data label label-pill label-default">{{ $protCal }}g Protein</span>
-        <span class="meal-data label label-pill label-default">{{ $carbCal }}g Carbohydrates</span>
-        <span class="meal-data label label-pill label-default">{{ $fatCal }}g Fat</span>
+        <span class="meal-data label label-pill label-primary">{{ $arrayStats[0] }} Cal</span>
+        <span class="meal-data label label-pill label-default">{{ $arrayStats[1] }}g Protein</span>
+        <span class="meal-data label label-pill label-default">{{ $arrayStats[2] }}g Carbohydrates</span>
+        <span class="meal-data label label-pill label-default">{{ $arrayStats[3] }}g Fat</span>
     </div>
     <hr>
     <div id="allfoods">
         <h3>Foods - Protein (g) : Carbohydrates (g): Fat (g)</h3>
         <ul class="list-food">
             <?php
-            use App\Http\Controllers\FoodController;
+            /*use App\Http\Controllers\FoodController;*/
             
             // Query the db for Foods associated with this Meal id
             $listOfFoods = DB::table('foods')->where('meal_id', $meal->id)->get();
@@ -35,6 +33,7 @@
 
                 FoodController::totalGrams($food->Protein, $food->Carbohydrates, $food->Fat);
                 FoodController::calcCalories();
+                FoodController::refreshStats();
             }
 
             // If no Foods were found
