@@ -36,14 +36,15 @@ class FoodController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public static function calcCalories($p, $c, $f) 
+    public static function calcCalories() 
     {
-        global $protCal, $carbCal, $fatCal, $totalCal;
+        global $gProt, $gCarb, $gFat,
+        $protCal, $carbCal, $fatCal, $totalCal;
 
-        $protCal += ($p * 4);
-        $carbCal += ($c * 4);
-        $fatCal += ($f * 9);
-        $totalCal += ($protCal + $carbCal + $fatCal);
+        $protCal = ($gProt * 4);  // 4 cal per g Protein
+        $carbCal = ($gCarb * 4);  // 4 cal per g Carbohydrate
+        $fatCal = ($gFat * 9);  // 9 cal per g Fat
+        $totalCal = ($protCal + $carbCal + $fatCal);
     }
 
     /**

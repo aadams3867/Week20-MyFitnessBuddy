@@ -34,6 +34,7 @@
                 $foodFound = true;  // Food(s) associated!
 
                 FoodController::totalGrams($food->Protein, $food->Carbohydrates, $food->Fat);
+                FoodController::calcCalories();
             }
 
             // If no Foods were found
