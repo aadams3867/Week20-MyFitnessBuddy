@@ -8,14 +8,14 @@ use App\Food;
 
 class FoodController extends Controller
 {
-    public $gProt;
-    public $gCarb;
-    public $gFat;
+    public $gProt=0;
+    public $gCarb=0;
+    public $gFat=0;
 
-    public $protCal;
-    public $carbCal;
-    public $fatCal;
-    public $totalCal;
+    public $protCal=0;
+    public $carbCal=0;
+    public $fatCal=0;
+    public $totalCal=0;
 
     /**
      * Calculate the total grams of Protein, Carbs, and Fat.
@@ -24,10 +24,11 @@ class FoodController extends Controller
      */
     public static function totalGrams($p, $c, $f) 
     {
-        $this->gProt += $p;
-        $this->$gCarb += $c;
-        $this->$gFat += $f;
-        return calcCalories($gProt, $gCarb, $gFat);
+        global $gProt, $gCarb, $gFat;
+
+        $gProt += $p;
+        $gCarb += $c;
+        $gFat += $f;
     }
     /**
      * Calculate the total calories.
@@ -37,11 +38,12 @@ class FoodController extends Controller
 
     public static function calcCalories($p, $c, $f) 
     {
+        global $protCal, $carbCal, $fatCal, $totalCal;
+
         $protCal += ($p * 4);
         $carbCal += ($c * 4);
         $fatCal += ($f * 9);
         $totalCal += ($protCal + $carbCal + $fatCal);
-        return $totalCal;
     }
 
     /**
