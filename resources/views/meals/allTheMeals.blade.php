@@ -8,7 +8,7 @@
     <hr>
     <div class="page-body">
         <div id="allmeals">
-            <ul class="list-food">
+            <ul class="list-meals">
                 <?php  
                 // Query the db for all the Meals associated with this User id
                 $listOfMeals = DB::table('meals')->where('user_id', Auth::user()->id)->get();
