@@ -8,7 +8,16 @@
         </div>
         <?php
             use App\Http\Controllers\FoodController;
-            $arrayStats = FoodController::initStats();
+            
+            // Initialize variables
+            global $arrayStats, $foodFound, $totalCal;
+            if ($arrayStats == NULL) {
+                $arrayStats = FoodController::initStats();
+            } else {
+                FoodController::refreshStats();
+            }
+            var_dump ($arrayStats);
+            var_dump ($foodFound);
         ?>
         <span class="meal-data label label-pill label-primary">{{ $arrayStats[0] }} Cal</span>
         <span class="meal-data label label-pill label-default">{{ $arrayStats[1] }}g Protein</span>
@@ -19,12 +28,9 @@
     <div id="allfoods">
         <h3>Foods - Protein (g) : Carbohydrates (g): Fat (g)</h3>
         <ul class="list-food">
-            <?php
-            /*use App\Http\Controllers\FoodController;*/
-            
+            <?php  
             // Query the db for Foods associated with this Meal id
             $listOfFoods = DB::table('foods')->where('meal_id', $meal->id)->get();
-            $foodFound = false;  // No foods associated
 
             // Loop through each Food associated with this Meal id
             foreach ($listOfFoods as $food) {
@@ -35,7 +41,9 @@
                 FoodController::calcCalories();
                 FoodController::refreshStats();
             }
-
+?><br><br><?php
+var_dump ($arrayStats);
+var_dump ($foodFound);
             // If no Foods were found
             if ($foodFound == false) {
                 echo "No Foods associated with this meal.  Add some below.";

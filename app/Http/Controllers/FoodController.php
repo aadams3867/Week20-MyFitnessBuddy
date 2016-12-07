@@ -8,34 +8,39 @@ use App\Food;
 
 class FoodController extends Controller
 {
-    public $gProt=0;
-    public $gCarb=0;
-    public $gFat=0;
+    public $foodFound;
+    public $arrayStats;
 
-    public $protCal=0;
-    public $carbCal=0;
-    public $fatCal=0;
-    public $totalCal=0;
+    public $gProt;
+    public $gCarb;
+    public $gFat;
+
+    public $protCal;
+    public $carbCal;
+    public $fatCal;
+    public $totalCal;
 
     /**
-     * Display Initial stats.
+     * Initialize stats.
      *
      * @return \Illuminate\Http\Response
      */
     public static function initStats() 
     {
+        global $foodFound, $arrayStats;
+        $foodFound = false;
         $arrayStats = array(0, 0, 0, 0);
         return $arrayStats;
     }
 
     /**
-     * Display Refreshed stats.
+     * Refresh stats.
      *
      * @return \Illuminate\Http\Response
      */
     public static function refreshStats() 
     {
-        global $totalCal, $gProt, $gCarb, $gFat;
+        global $arrayStats, $totalCal, $gProt, $gCarb, $gFat;
         $arrayStats = array($totalCal, $gProt, $gCarb, $gFat);
         var_dump ($arrayStats);
         return $arrayStats;
@@ -110,6 +115,8 @@ class FoodController extends Controller
             sprintf( 'Created new food: %s',    // %s = string
                 $food->Food_Name)
         );
+
+        FoodController::refreshStats();
 
         return redirect()->action( 'MealController@show',
             $meal->id       // Food created successfully, so now let's display it
