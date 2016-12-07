@@ -17,7 +17,7 @@
                       <input type="text" class="form-control" placeholder="Meal name" aria-describedby="sizing-addon2"
                             name="Meal_Name"
                             id="Meal_Name"
-                            value="@yield('Meal_Name')">
+                            value="@yield('Meal_Name')" required>
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">Submit</button>
                       </span>

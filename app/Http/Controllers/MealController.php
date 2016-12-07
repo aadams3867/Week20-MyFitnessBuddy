@@ -49,8 +49,14 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation of user input => added "required" property to addMeal.blade.php's form's 'Meal_Name' input instead
+/*        $this->validate($request, [
+            'Meal_Name' => 'required'
+        ]);*/
+
+
         $meal               = new Meal($request->all());    // Create a new Meal obj
-        $meal->Meal_Name    = $request->Meal_Name;  // The $request->Meal_Name is from addMeal.blade.php's form's 'Meal name' input
+        $meal->Meal_Name    = $request->Meal_Name;  // The $request->Meal_Name is from addMeal.blade.php's form's 'Meal_Name' input
         $meal->user_id      = Auth::user()->id;
 
         Auth::user()->meals()->save($meal);     // Sets user hasMany meals relationship and then saves it in the db
