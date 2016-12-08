@@ -29,8 +29,7 @@ class FoodController extends Controller
     {
         global $foodFound, $arrayStats;
         $foodFound = false;
-        $arrayStats = array(0, 0, 0, 0);
-        return $arrayStats;
+        return array(0, 0, 0, 0);
     }
 
     /**
@@ -40,10 +39,9 @@ class FoodController extends Controller
      */
     public static function refreshStats() 
     {
-        global $arrayStats, $totalCal, $gProt, $gCarb, $gFat;
-        $arrayStats = array($totalCal, $gProt, $gCarb, $gFat);
-        var_dump ($arrayStats);
-        return $arrayStats;
+        global $arrayStats, $foodFound, $totalCal, $gProt, $gCarb, $gFat;
+        $foodFound = true;  // Food(s) associated!
+        return array($totalCal, $gProt, $gCarb, $gFat);
     }
     
     /**
@@ -105,6 +103,8 @@ class FoodController extends Controller
      */
     public function store(Request $request, Meal $meal)
     {
+        global $foodFound, $arrayStats;
+
         $food               = new Food($request->all());    // Create a new Food obj
         $food->Food_Name    = $request->Food_Name;  // The $request->Food_Name is from oneMeal.blade.php's form's 'Food name' input
         $food->meal_id      = $meal->id;
@@ -116,7 +116,8 @@ class FoodController extends Controller
                 $food->Food_Name)
         );
 
-        FoodController::refreshStats();
+        $foodFound = true;
+        $arrayStats = FoodController::refreshStats();
 
         return redirect()->action( 'MealController@show',
             $meal->id       // Food created successfully, so now let's display it
