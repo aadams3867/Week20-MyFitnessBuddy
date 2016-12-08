@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Meal;
 use App\Food;
+use App\Http\Controllers\FoodController;
 
 class FoodController extends Controller
 {
+    public $listOfFoods;
     public $foodFound;
     public $arrayStats;
 
@@ -21,13 +24,39 @@ class FoodController extends Controller
     public $totalCal;
 
     /**
+     * Calculate Meal stats for display on Meal.blade.php.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function calcStats($id) 
+    {
+        global $listOfFoods, $arrayStats, $foodFound;
+
+        // Query the db for Foods associated with this Meal id
+        $listOfFoods = DB::table('foods')->where('meal_id', $id)->get();
+
+        // Loop through each Food associated with this Meal id
+        // and calculate the Meal stats
+        foreach ($listOfFoods as $food) {
+            FoodController::totalGrams($food->Protein, $food->Carbohydrates, $food->Fat);
+            FoodController::calcCalories();
+            $arrayStats = FoodController::refreshStats();
+        }
+
+        // If there are no Foods associated with this Meal id yet...
+        if ($arrayStats == NULL) {
+            $arrayStats = FoodController::initStats();
+        }
+    }
+
+    /**
      * Initialize stats.
      *
      * @return \Illuminate\Http\Response
      */
     public static function initStats() 
     {
-        global $foodFound, $arrayStats;
+        global $foodFound;
         $foodFound = false;
         return array(0, 0, 0, 0);
     }
@@ -39,7 +68,7 @@ class FoodController extends Controller
      */
     public static function refreshStats() 
     {
-        global $arrayStats, $foodFound, $totalCal, $gProt, $gCarb, $gFat;
+        global $foodFound, $totalCal, $gProt, $gCarb, $gFat;
         $foodFound = true;  // Food(s) associated!
         return array($totalCal, $gProt, $gCarb, $gFat);
     }

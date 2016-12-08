@@ -8,26 +8,9 @@
         </div>
         <?php
             use App\Http\Controllers\FoodController;
-
-            // Initialize variables
-            global $arrayStats, $foodFound;
+            global $arrayStats, $foodFound, $listOfFoods;
             
-            // Query the db for Foods associated with this Meal id
-            $listOfFoods = DB::table('foods')->where('meal_id', $meal->id)->get();
-
-            // Loop through each Food associated with this Meal id
-            // and calculate the Meal stats
-            foreach ($listOfFoods as $food) {
-                FoodController::totalGrams($food->Protein, $food->Carbohydrates, $food->Fat);
-                FoodController::calcCalories();
-                $arrayStats = FoodController::refreshStats();
-            }
-
-            // If there are no Foods associated with this Meal id yet...
-            if ($arrayStats == NULL) {
-                $arrayStats = FoodController::initStats();
-            }
-
+            FoodController::calcStats($meal->id);
         ?>
         <span class="meal-data label label-pill label-primary">{{ $arrayStats[0] }} Cal</span>
         <span class="meal-data label label-pill label-default">{{ $arrayStats[1] }}g Protein</span>
